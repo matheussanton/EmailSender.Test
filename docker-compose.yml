@@ -17,7 +17,7 @@ services:
         restart: always
 
   emailsender:
-    image: local-email-sender-test:latest
+    image: local-email-sender:latest
     depends_on:
       - "mailslurper"
     container_name: emailsender
