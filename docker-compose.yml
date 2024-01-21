@@ -1,0 +1,28 @@
+version: "3.8"
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  mailslurper:
+        image: marcopas/docker-mailslurper
+        ports:
+            - "2500:2500"
+            - "9000:8080"
+            - "8085:8085"
+        networks:
+            - dev
+        container_name: mailslurper
+        restart: always
+
+  emailsender:
+    image: local-email-sender-test:latest
+    depends_on:
+      - "mailslurper"
+    container_name: emailsender
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - dev
